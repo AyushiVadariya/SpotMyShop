@@ -1,7 +1,25 @@
-apply plugin: "com.android.application"
+apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'com.facebook.react'
+apply plugin: 'com.google.gms.google-services' // Google services plugin
+
+/*apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: 'com.google.gms.google-services'
 
+plugins {
+  // ...
+
+  // Add the dependency for the Google services Gradle plugin
+  id 'com.google.gms.google-services' version '4.4.3' apply false
+
+  id 'com.android.application'
+
+  // Add the Google services Gradle plugin
+  id 'com.google.gms.google-services'
+
+}*/
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -110,6 +128,15 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+
+        // Firebase BoM (manages versions automatically)
+    implementation platform("com.google.firebase:firebase-bom:34.1.0")
+
+    // Firebase Analytics (needed for most Firebase features)
+    implementation "com.google.firebase:firebase-analytics"
+
+    // Firestore (since you want to save products)
+    implementation "com.google.firebase:firebase-firestore"
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
