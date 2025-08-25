@@ -1,0 +1,49 @@
+<!-- signup-shopkeeper.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shopkeeper Sign Up | SpotMyShop</title>
+  <link rel="stylesheet" href="signup-shopkeeper.css">
+</head>
+<body>
+  <div class="signup-container">
+    <h1>Register Your Shop</h1>
+    <form id="shopkeeperSignupForm">
+      <input type="text" id="shopName" placeholder="Shop Name" required>
+      <input type="text" id="shopAddress" placeholder="Shop Address" required>
+
+      <input type="text" id="shopLocation" placeholder="Shop Location (Google Map)" required>
+
+      <input type="text" id="ownerName" placeholder="Owner Name" required>
+      <input type="tel" id="ownerContact" placeholder="Owner Contact No." required>
+      <input type="tel" id="shopContact" placeholder="Shop Contact No." required>
+
+      <div class="inline-inputs">
+        <input type="time" id="openTime" required>
+        <input type="time" id="closeTime" required>
+      </div>
+
+      <select id="freeDay" required>
+        <option value="">Select Free Day</option>
+        <option>Sunday</option>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+        <option>Saturday</option>
+      </select>
+
+      <input type="email" id="email" placeholder="Email ID" required>
+      <input type="password" id="password" placeholder="Password" required>
+
+      <button type="submit">Register Shop</button>
+
+      <p class="switch-auth">Already have an account? <a href="login-shopkeeper.html">Login</a></p>
+    </form>
+  </div>
+  <script src="signup-shopkeeper.js"></script>
+</body>
+</html>
