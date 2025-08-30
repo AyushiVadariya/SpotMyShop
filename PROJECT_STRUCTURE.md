@@ -2,8 +2,6 @@
 
 <!-- START_STRUCTURE -->
 ```
-├── CODE_OF_CONDUCT.md
-├── CONTRIBUTING.md
 ├── Dockerfile
 ├── LICENSE
 ├── PROJECT_STRUCTURE.md
@@ -268,7 +266,6 @@
 │   ├── contactUsForm.tsx
 │   ├── contributorCard.tsx
 │   ├── features.tsx
-│   ├── footer/
 │   ├── footer.tsx
 │   ├── modals/
 │   │   ├── alert-modal.tsx
@@ -341,6 +338,7 @@
 │   ├── sendEmail.ts
 │   └── utils.ts
 ├── middleware.ts
+├── next.config - Copy.mjs
 ├── next.config.mjs
 ├── package-lock.json
 ├── package.json
@@ -352,6 +350,7 @@
 │   └── sessionProvider.tsx
 ├── public/
 │   ├── Founder.jpeg
+│   ├── SpotMyShop.png
 │   ├── about-us-1.png
 │   ├── about-us-2.png
 │   ├── admin.svg
@@ -387,7 +386,6 @@
 │   ├── diamond_blue.png
 │   ├── diamond_green.png
 │   ├── electronics.png
-│   ├── SpotMyShop.png
 │   ├── fasion.png
 │   ├── food1a.jpeg
 │   ├── food1b.jpeg
