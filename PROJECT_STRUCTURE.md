@@ -7,6 +7,7 @@
 ├── PROJECT_STRUCTURE.md
 ├── README.md
 ├── SECURITY.md
+├── about-us-1.png
 ├── actions/
 │   ├── Admin/
 │   │   └── admin-login.tsx
@@ -350,6 +351,8 @@
 │   └── sessionProvider.tsx
 ├── public/
 │   ├── Founder.jpeg
+│   ├── New Bitmap image (2).bmp
+│   ├── New Bitmap image.bmp
 │   ├── SpotMyShop.png
 │   ├── about-us-1.png
 │   ├── about-us-2.png
