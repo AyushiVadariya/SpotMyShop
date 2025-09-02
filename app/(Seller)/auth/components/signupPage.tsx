@@ -90,59 +90,137 @@ const SignupPage: React.FC<SignupPageProps> = ({
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
-    setloading(true);
+    
     e.preventDefault();
+    setloading(true);
+    setError("");
 
-    // Basic validation
-    if (!name || !mobile || !email
-      // || !storeMobile  || !storeAddress || !storeUPI || !storeName ||!storeDescription
-    ) {
-      setError("All fields are required.");
+    // trim + sanitize
+  const nameTrim = name.trim();
+  const emailTrim = email.trim();
+  const mobileSanitized = String(mobile || "").replace(/\D/g, ""); // keep only digits
+
+  console.log("SIGNUP (frontend) payload:", {
+    name: nameTrim,
+    email: emailTrim,
+    mobileSanitized,
+  });
+
+  // Basic validation (friendly messages)
+  if (!nameTrim || !emailTrim || !mobileSanitized) {
+    setError("All fields are required.");
+    setloading(false);
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrim)) {
+    setError("Invalid email format.");
+    setloading(false);
+    return;
+  }
+
+  // accept either 10-digit local or longer with country code — use last 10 digits (India example)
+  if (mobileSanitized.length < 10) {
+    setError("Enter a valid mobile number (at least 10 digits).");
+    setloading(false);
+    return;
+  }
+  const mobileToSend = mobileSanitized.slice(-10); // last 10 digits
+
+  try {
+    // log exact payload being sent
+    console.log("Sending to API:", { email: emailTrim, name: nameTrim, mobileNumber: mobileToSend });
+
+    const res = await axios.post("/api/auth/signup/seller", {
+      email: emailTrim,
+      name: nameTrim,
+      mobileNumber: mobileToSend,
+      otp: "",
+    });
+
+    console.log("API response:", res.data);
+
+    if (res.status === 200) {
+      toast.success("OTP sent successfully!");
+      setOtpOpen(true);
       setloading(false);
       return;
+    } else {
+      // handle unexpected status (still show backend message if present)
+      setError(res.data?.message || "Signup failed");
     }
+  } catch (err: any) {
+    console.error("Signup error (axios):", err);
+    // show real backend message when available
+    const backendMsg = err?.response?.data?.message;
+    if (backendMsg) {
+      setError(backendMsg);
+    } else if (axios.isAxiosError(err)) {
+      setError(err.message || "Network / Axios error");
+    } else {
+      setError("Something went wrong");
+    }
+    setloading(false);
+    return;
+  }
 
-    try {
-      const res = await axios.post("/api/auth/signup/seller", {
-        email,
-        name,
-        mobileNumber : mobile,
-        // storeMobile,
+  // fallback UI resets (shouldn't normally run if returned above)
+  setOtpOpen(true);
+  setname("");
+  setMobile("");
+  setloading(false);
+};
+
+    // Basic validation
+//    if (!name || !mobile || !email
+  //    // || !storeMobile  || !storeAddress || !storeUPI || !storeName ||!storeDescription
+//    ) {
+//      setError("All fields are required.");
+//      setloading(false);
+//      return;
+//    }
+
+ //   try {
+//    const res = await axios.post("/api/auth/signup/seller", {
+//       email,
+//        name,
+//      mobileNumber : mobile,
+      // storeMobile,
         // storeAddress,
         // storeUPI,
         // storeName,
         // storeDescription,
         otp:""
-      });
-      if(res.status===200){
-        toast.success("otp sent successfully!");
-        setOtpOpen(true);
-        setloading(false)
-        return;
-      }
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        setError("Invalid email or number, axios error");
-      } else {
-        setError("Invalid email or number");
-      }
-      //
-      console.log(err);
-      setloading(false);
-      return;
-    }
-    setOtpOpen(true);
+//      });
+//    if(res.status===200){
+//      toast.success("otp sent successfully!");
+//      setOtpOpen(true);
+//      setloading(false)
+//      return;
+//    }
+//  } catch (err) {
+//    if (axios.isAxiosError(err)) {
+//      setError("Invalid email or number, axios error");
+//    } else {
+//      setError("Invalid email or number");
+//    }
+//    //
+//    console.log(err);
+//    setloading(false);
+//    return;
+//  }
+//  setOtpOpen(true);
 
-    setname("");
-    setMobile("");
+//  setname("");
+//  setMobile("");
     // setStoreMobile("");
     // setStoreAddress("");
     // setStoreUPI("");
     // setStoreName("");
     // setStoreDescription("")
 
-    setloading(false);
-  };
+//  setloading(false);
+//};
 
   return (
     <>

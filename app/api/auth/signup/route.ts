@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 
   // Check if the user already exists
   try{
-  const existingUser = await prisma.user.findUnique({
+  const existingUser = await prisma.seller.findUnique({
     where: { email },
   });
 
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   // const passwordHash = await bcrypt.hash(password, 10);
   
   // Create the user
-  const user = await prisma.user.create({
+  const seller = await prisma.seller.create({
     data: {
       email,
       mobileNumber,
@@ -31,15 +31,15 @@ export async function POST(request: Request) {
     },
   });
 
-  const res=await generateAndSendOTP(email,"user");
+  const res=await generateAndSendOTP(email,"seller");
 
   if (res) {
     return NextResponse.json({
-      message: 'ACCOUNT CREATED, VERIFY EMAIL VIA OTP',user 
+      message: 'ACCOUNT CREATED, VERIFY EMAIL VIA OTP',seller
     },{status:200});
   } else {
     return NextResponse.json({
-      message: "STORE CREATED, BUT FAILED TO SEND OTP.",user
+      message: "STORE CREATED, BUT FAILED TO SEND OTP.",seller
     },{status:500});
   }
 }catch(err){
